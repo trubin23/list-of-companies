@@ -2,6 +2,10 @@ package ru.trubin23.listofcompanies.data.source;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import ru.trubin23.listofcompanies.data.Company;
+
 /**
  * Created by Andrey on 22.03.2018.
  */
@@ -20,5 +24,19 @@ public class LocalRepository {
             INSTANCE = new LocalRepository(companiesDao);
         }
         return INSTANCE;
+    }
+
+    @NonNull
+    public List<Company> getCompanies(){
+        return mCompaniesDao.getCompanies();
+    }
+
+    @NonNull
+    public Company getCompany(@NonNull String companyId){
+        return mCompaniesDao.getCompany(companyId);
+    }
+
+    public void insertCompanies(@NonNull List<Company> companies){
+        mCompaniesDao.insertCompanies(companies);
     }
 }

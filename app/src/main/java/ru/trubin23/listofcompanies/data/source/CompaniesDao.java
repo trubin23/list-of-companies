@@ -23,5 +23,5 @@ interface CompaniesDao {
     Company getCompany(String companyId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCompanies(List<Company> tasks);
+    void insertCompanies(List<Company> companies);
 }
