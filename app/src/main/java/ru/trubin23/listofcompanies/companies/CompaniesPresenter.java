@@ -24,6 +24,6 @@ public class CompaniesPresenter implements CompaniesContract.Presenter {
 
     @Override
     public void start() {
-
+        mLocalRepository.getCompanies();
     }
 }

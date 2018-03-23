@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">list of companies</string>
+    <string name="company_address">Company address</string>
+    <string name="company_inn">Company inn</string>
 </resources>
