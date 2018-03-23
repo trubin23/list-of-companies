@@ -62,6 +62,11 @@ public class CompaniesFragment extends Fragment implements CompaniesContract.Vie
 
     @Override
     public void showCompanies(@NonNull List<Company> companies) {
-
+        if (getContext() != null) {
+            SpinAdapter adapter = new SpinAdapter(getContext(),
+                    android.R.layout.simple_spinner_item,
+                    companies);
+            mCompaniesSpinner.setAdapter(adapter);
+        }
     }
 }
