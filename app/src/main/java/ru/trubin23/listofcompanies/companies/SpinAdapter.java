@@ -23,7 +23,7 @@ public class SpinAdapter extends ArrayAdapter<Company> {
 
     SpinAdapter(@NonNull Context context, int resource,
                 @NonNull List<Company> companies) {
-        super(context, resource);
+        super(context, resource, companies);
         mCompanies = companies;
     }
 

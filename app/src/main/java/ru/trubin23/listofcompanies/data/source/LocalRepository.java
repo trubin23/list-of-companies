@@ -19,18 +19,15 @@ public class LocalRepository implements CompaniesDataSource {
 
     private CompaniesDao mCompaniesDao;
 
-    private final Executor mDiskIO;
+    private static final Executor mDiskIO = Executors.newSingleThreadExecutor();
 
-    private LocalRepository(@NonNull CompaniesDao companiesDao,
-                            @NonNull Executor diskIO) {
+    private LocalRepository(@NonNull CompaniesDao companiesDao) {
         mCompaniesDao = companiesDao;
-        mDiskIO = diskIO;
     }
 
     public static LocalRepository getInstance(@NonNull CompaniesDao companiesDao) {
         if (INSTANCE == null) {
-            INSTANCE = new LocalRepository(companiesDao,
-                    Executors.newSingleThreadExecutor());
+            INSTANCE = new LocalRepository(companiesDao);
         }
         return INSTANCE;
     }
@@ -57,5 +54,9 @@ public class LocalRepository implements CompaniesDataSource {
                 callback.onCompanyLoaded(task);
             }
         });
+    }
+
+    static void ioThread(Runnable runnable){
+        mDiskIO.execute(runnable);
     }
 }

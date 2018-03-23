@@ -45,10 +45,15 @@ public class CompaniesFragment extends Fragment implements CompaniesContract.Vie
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
     public void setPresenter(@NonNull CompaniesContract.Presenter presenter) {
         mPresenter = presenter;
     }
-
 
     @Override
     public void setAddress(@NonNull String address) {
