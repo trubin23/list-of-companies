@@ -1,10 +1,11 @@
 package ru.trubin23.listofcompanies.data.source;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ru.trubin23.listofcompanies.data.Company;
@@ -21,8 +22,12 @@ public class LocalRepository implements CompaniesDataSource {
 
     private static final Executor mDiskIO = Executors.newSingleThreadExecutor();
 
+    private Handler mMainThreadHandler;
+
     private LocalRepository(@NonNull CompaniesDao companiesDao) {
         mCompaniesDao = companiesDao;
+
+        mMainThreadHandler = new Handler(Looper.getMainLooper());
     }
 
     public static LocalRepository getInstance(@NonNull CompaniesDao companiesDao) {
@@ -37,9 +42,9 @@ public class LocalRepository implements CompaniesDataSource {
         mDiskIO.execute(() -> {
             List<Company> companies = mCompaniesDao.getCompanies();
             if (companies.isEmpty()) {
-                callback.onDataNotAvailable();
+                mMainThreadHandler.post(callback::onDataNotAvailable);
             } else {
-                callback.onCompaniesLoaded(companies);
+                mMainThreadHandler.post(() -> callback.onCompaniesLoaded(companies));
             }
         });
     }
