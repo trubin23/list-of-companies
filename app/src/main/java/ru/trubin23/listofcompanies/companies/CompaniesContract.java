@@ -23,5 +23,6 @@ public interface CompaniesContract {
     }
 
     interface Presenter extends BasePresenter {
+        void selectedCompany(@NonNull Company company);
     }
 }

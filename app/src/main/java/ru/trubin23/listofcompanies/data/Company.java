@@ -54,4 +54,9 @@ public class Company {
     public String getInn() {
         return mInn;
     }
+
+    @Override
+    public String toString() {
+        return mName;
+    }
 }

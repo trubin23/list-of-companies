@@ -47,4 +47,10 @@ public class CompaniesPresenter implements CompaniesContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void selectedCompany(@NonNull Company company) {
+        mView.setAddress(company.getAddress());
+        mView.setInn(company.getInn());
+    }
 }
