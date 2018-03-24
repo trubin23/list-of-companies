@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,6 +24,10 @@ import ru.trubin23.listofcompanies.data.Company;
  */
 
 public class CompaniesFragment extends Fragment implements CompaniesContract.View {
+
+    private static final String COMPANY_ID = "COMPANY_ID";
+    private static final int INVALID_COMPANY_ID = -1;
+    private int mLastCompanyId;
 
     private CompaniesContract.Presenter mPresenter;
 
@@ -65,9 +68,32 @@ public class CompaniesFragment extends Fragment implements CompaniesContract.Vie
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mLastCompanyId = INVALID_COMPANY_ID;
+        if (savedInstanceState != null) {
+            mLastCompanyId = savedInstanceState.getInt(COMPANY_ID, INVALID_COMPANY_ID);
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        int currentCompanyId = INVALID_COMPANY_ID;
+        if (mCompaniesSpinner.getSelectedItem() != null) {
+            Company company = (Company) mCompaniesSpinner.getSelectedItem();
+            currentCompanyId = company.getCompanyId();
+        }
+
+        outState.putInt(COMPANY_ID, currentCompanyId);
     }
 
     @Override
@@ -89,5 +115,17 @@ public class CompaniesFragment extends Fragment implements CompaniesContract.Vie
     public void showCompanies(@NonNull List<Company> companies) {
         mAdapter.clear();
         mAdapter.addAll(companies);
+
+        if (mLastCompanyId == INVALID_COMPANY_ID) {
+            return;
+        }
+
+        for (int i = 0; i < mCompaniesSpinner.getCount(); i++) {
+            Company company = (Company) mCompaniesSpinner.getItemAtPosition(i);
+            if (company.getCompanyId() == mLastCompanyId) {
+                mCompaniesSpinner.setSelection(i);
+                break;
+            }
+        }
     }
 }

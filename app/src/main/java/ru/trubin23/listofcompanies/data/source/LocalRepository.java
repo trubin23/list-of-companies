@@ -44,18 +44,6 @@ public class LocalRepository implements CompaniesDataSource {
         });
     }
 
-    @Override
-    public void getCompany(@NonNull String id, @NonNull GetCompanyCallback callback) {
-        mDiskIO.execute(() -> {
-            Company task = mCompaniesDao.getCompanyById(id);
-            if (task == null) {
-                callback.onDataNotAvailable();
-            } else {
-                callback.onCompanyLoaded(task);
-            }
-        });
-    }
-
     static void ioThread(Runnable runnable){
         mDiskIO.execute(runnable);
     }

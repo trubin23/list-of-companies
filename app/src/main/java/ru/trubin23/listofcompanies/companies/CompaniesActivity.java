@@ -14,15 +14,15 @@ public class CompaniesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.companies_act);
 
-        CompaniesFragment tasksFragment =
+        CompaniesFragment companiesFragment =
                 (CompaniesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (tasksFragment == null) {
-            tasksFragment = new CompaniesFragment();
+        if (companiesFragment == null) {
+            companiesFragment = new CompaniesFragment();
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), tasksFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), companiesFragment, R.id.contentFrame);
         }
 
         new CompaniesPresenter(Injection.provideLocalRepository(getApplicationContext()),
-                tasksFragment);
+                companiesFragment);
     }
 }

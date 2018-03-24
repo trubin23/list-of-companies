@@ -19,9 +19,6 @@ interface CompaniesDao {
     @Query("SELECT * FROM companies")
     List<Company> getCompanies();
 
-    @Query("SELECT * FROM companies WHERE company_id = :companyId")
-    Company getCompanyById(String companyId);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCompanies(List<Company> companies);
 }

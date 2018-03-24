@@ -19,14 +19,5 @@ public interface CompaniesDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetCompanyCallback{
-
-        void onCompanyLoaded(@NonNull Company company);
-
-        void onDataNotAvailable();
-    }
-
     void getCompanies(@NonNull LoadCompaniesCallback callback);
-
-    void getCompany(@NonNull String id, @NonNull GetCompanyCallback callback);
 }
