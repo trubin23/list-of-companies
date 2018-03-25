@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.Widget.ActionBar.Title"
+        parent="@android:style/TextAppearance.Medium">
+    </style>
+
 </resources>

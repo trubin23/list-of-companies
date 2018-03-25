@@ -2,38 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/fragment_margin">
+    android:layout_margin="@dimen/fragment_margin"
+    android:orientation="vertical">
 
     <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/companies_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/title_company_address"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/company_address" />
+        android:textSize="@dimen/basic_text_size"/>
 
     <TextView
         android:id="@+id/company_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp" />
-
-    <TextView
-        android:id="@+id/title_company_inn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/company_inn" />
+        android:layout_marginTop="16dp"
+        android:text="@string/company_address"
+        android:textSize="@dimen/basic_text_size"/>
 
     <TextView
         android:id="@+id/company_inn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp" />
+        android:layout_marginTop="16dp"
+        android:text="@string/company_inn"
+        android:textSize="@dimen/basic_text_size" />
 
 </LinearLayout>
