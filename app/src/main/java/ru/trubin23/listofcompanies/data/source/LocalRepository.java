@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -20,12 +21,14 @@ public class LocalRepository implements CompaniesDataSource {
 
     private CompaniesDao mCompaniesDao;
 
-    private static final Executor mDiskIO = Executors.newSingleThreadExecutor();
+    private Executor mDiskIO;
 
     private Handler mMainThreadHandler;
 
     private LocalRepository(@NonNull CompaniesDao companiesDao) {
         mCompaniesDao = companiesDao;
+
+        mDiskIO = Executors.newSingleThreadExecutor();
 
         mMainThreadHandler = new Handler(Looper.getMainLooper());
     }
@@ -42,14 +45,26 @@ public class LocalRepository implements CompaniesDataSource {
         mDiskIO.execute(() -> {
             List<Company> companies = mCompaniesDao.getCompanies();
             if (companies.isEmpty()) {
+                mCompaniesDao.insertCompanies(prePopulateData());
+            }
+
+            List<Company> initCompanies = mCompaniesDao.getCompanies();
+            if (initCompanies.isEmpty()) {
                 mMainThreadHandler.post(callback::onDataNotAvailable);
             } else {
-                mMainThreadHandler.post(() -> callback.onCompaniesLoaded(companies));
+                mMainThreadHandler.post(() -> callback.onCompaniesLoaded(initCompanies));
             }
         });
     }
 
-    static void ioThread(Runnable runnable){
-        mDiskIO.execute(runnable);
+    @NonNull
+    private List<Company> prePopulateData(){
+        List<Company> companies = new ArrayList<>();
+        companies.add(new Company("Тестовое имя #1", "ул. первая, д.1", "123456789001"));
+        companies.add(new Company("Тестовое имя #2", "ул. вторая, д.2", "123456789002"));
+        companies.add(new Company("Тестовое имя #3", "ул. третья, д.3", "123456789003"));
+        companies.add(new Company("Тестовое имя #4", "ул. четвертая, д.4", "123456789004"));
+        companies.add(new Company("Тестовое имя #5", "ул. пятая, д.5", "123456789005"));
+        return companies;
     }
 }

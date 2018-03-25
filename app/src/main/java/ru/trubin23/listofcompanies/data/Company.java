@@ -12,9 +12,9 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "companies")
 public class Company {
 
-    @PrimaryKey
-    @ColumnInfo(name = "company_id")
-    private final int mCompanyId;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private Long mCompanyId = null;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -28,16 +28,18 @@ public class Company {
     @ColumnInfo(name = "inn")
     private final String mInn;
 
-    public Company(int companyId, @NonNull String name,
-                   @NonNull String address, @NonNull String inn) {
-        mCompanyId = companyId;
+    public Company(@NonNull String name, @NonNull String address, @NonNull String inn) {
         mName = name;
         mAddress = address;
         mInn = inn;
     }
 
-    public int getCompanyId() {
+    public Long getCompanyId() {
         return mCompanyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        mCompanyId = companyId;
     }
 
     @NonNull
