@@ -1,4 +1,4 @@
-package ru.trubin23.listofcompanies.data.source;
+package ru.trubin23.listofcompanies.data.source.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

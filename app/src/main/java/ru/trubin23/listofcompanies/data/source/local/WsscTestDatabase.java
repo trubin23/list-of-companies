@@ -1,16 +1,9 @@
-package ru.trubin23.listofcompanies.data.source;
+package ru.trubin23.listofcompanies.data.source.local;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ru.trubin23.listofcompanies.data.Company;
 

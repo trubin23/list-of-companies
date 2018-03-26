@@ -1,21 +1,21 @@
-package ru.trubin23.listofcompanies.data.source;
+package ru.trubin23.listofcompanies.data.source.local;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import ru.trubin23.listofcompanies.data.Company;
+import ru.trubin23.listofcompanies.data.source.LoadCompaniesCallback;
 
 /**
  * Created by Andrey on 22.03.2018.
  */
 
-public class LocalRepository implements CompaniesDataSource {
+public class LocalRepository {
 
     private static LocalRepository INSTANCE;
 
@@ -46,7 +46,6 @@ public class LocalRepository implements CompaniesDataSource {
         return INSTANCE;
     }
 
-    @Override
     public void getCompanies(@NonNull LoadCompaniesCallback callback) {
         mDiskIO.execute(() -> {
             List<Company> companies = mCompaniesDao.getCompanies();
@@ -61,5 +60,9 @@ public class LocalRepository implements CompaniesDataSource {
                 mMainThreadHandler.post(() -> callback.onCompaniesLoaded(initCompanies));
             }
         });
+    }
+
+    public void insertCompanies(@NonNull List<Company> companies){
+        mDiskIO.execute(() -> mCompaniesDao.insertCompanies(companies));
     }
 }
