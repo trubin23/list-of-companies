@@ -70,16 +70,20 @@ public class CompaniesFragment extends Fragment implements CompaniesContract.Vie
 
     @Override
     public void setAddress(@NonNull String address) {
-        String addressText = String.format("<b>%s:</b> %s",
-                getResources().getString(R.string.company_address), address);
-        mCompanyAddress.setText(Html.fromHtml(addressText));
+        if (getActivity()!=null) {
+            String addressText = String.format("<b>%s:</b> %s",
+                    getResources().getString(R.string.company_address), address);
+            mCompanyAddress.setText(Html.fromHtml(addressText));
+        }
     }
 
     @Override
     public void setInn(@NonNull String inn) {
-        String innText = String.format("<b>%s:</b> %s",
-                getResources().getString(R.string.company_inn), inn);
-        mCompanyInn.setText(Html.fromHtml(innText));
+        if (getActivity()!=null) {
+            String innText = String.format("<b>%s:</b> %s",
+                    getResources().getString(R.string.company_inn), inn);
+            mCompanyInn.setText(Html.fromHtml(innText));
+        }
     }
 
     @Override
