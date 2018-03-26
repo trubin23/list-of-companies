@@ -21,21 +21,27 @@ public class LocalRepository implements CompaniesDataSource {
 
     private CompaniesDao mCompaniesDao;
 
+    private List<Company> mInitialCompanies;
+
     private Executor mDiskIO;
 
     private Handler mMainThreadHandler;
 
-    private LocalRepository(@NonNull CompaniesDao companiesDao) {
+    private LocalRepository(@NonNull CompaniesDao companiesDao,
+                            @NonNull List<Company> initialCompanies) {
         mCompaniesDao = companiesDao;
+
+        mInitialCompanies = initialCompanies;
 
         mDiskIO = Executors.newSingleThreadExecutor();
 
         mMainThreadHandler = new Handler(Looper.getMainLooper());
     }
 
-    public static LocalRepository getInstance(@NonNull CompaniesDao companiesDao) {
+    public static LocalRepository getInstance(@NonNull CompaniesDao companiesDao,
+                                              @NonNull List<Company> initialCompanies) {
         if (INSTANCE == null) {
-            INSTANCE = new LocalRepository(companiesDao);
+            INSTANCE = new LocalRepository(companiesDao, initialCompanies);
         }
         return INSTANCE;
     }
@@ -45,7 +51,7 @@ public class LocalRepository implements CompaniesDataSource {
         mDiskIO.execute(() -> {
             List<Company> companies = mCompaniesDao.getCompanies();
             if (companies.isEmpty()) {
-                mCompaniesDao.insertCompanies(prePopulateData());
+                mCompaniesDao.insertCompanies(mInitialCompanies);
             }
 
             List<Company> initCompanies = mCompaniesDao.getCompanies();
@@ -55,16 +61,5 @@ public class LocalRepository implements CompaniesDataSource {
                 mMainThreadHandler.post(() -> callback.onCompaniesLoaded(initCompanies));
             }
         });
-    }
-
-    @NonNull
-    private List<Company> prePopulateData(){
-        List<Company> companies = new ArrayList<>();
-        companies.add(new Company("Тестовое имя #1", "ул. первая, д.1", "123456789001"));
-        companies.add(new Company("Тестовое имя #2", "ул. вторая, д.2", "123456789002"));
-        companies.add(new Company("Тестовое имя #3", "ул. третья, д.3", "123456789003"));
-        companies.add(new Company("Тестовое имя #4", "ул. четвертая, д.4", "123456789004"));
-        companies.add(new Company("Тестовое имя #5", "ул. пятая, д.5", "123456789005"));
-        return companies;
     }
 }

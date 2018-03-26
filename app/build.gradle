@@ -37,4 +37,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation 'com.jaredrummler:material-spinner:1.2.4'
+
+    implementation 'com.google.code.gson:gson:2.8.2'
 }

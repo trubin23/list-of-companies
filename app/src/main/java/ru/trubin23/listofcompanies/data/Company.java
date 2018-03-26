@@ -5,6 +5,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Andrey on 21.03.2018.
  */
@@ -16,23 +19,20 @@ public class Company {
     @ColumnInfo(name = "id")
     private Long mCompanyId = null;
 
-    @NonNull
     @ColumnInfo(name = "name")
-    private final String mName;
+    @SerializedName("name")
+    @Expose
+    private String mName;
 
-    @NonNull
     @ColumnInfo(name = "address")
-    private final String mAddress;
+    @SerializedName("address")
+    @Expose
+    private String mAddress;
 
-    @NonNull
     @ColumnInfo(name = "inn")
-    private final String mInn;
-
-    public Company(@NonNull String name, @NonNull String address, @NonNull String inn) {
-        mName = name;
-        mAddress = address;
-        mInn = inn;
-    }
+    @SerializedName("inn")
+    @Expose
+    private String mInn;
 
     public Long getCompanyId() {
         return mCompanyId;
@@ -47,14 +47,26 @@ public class Company {
         return mName;
     }
 
+    public void setName(String name) {
+        mName = name;
+    }
+
     @NonNull
     public String getAddress() {
         return mAddress;
     }
 
+    public void setAddress(String address) {
+        mAddress = address;
+    }
+
     @NonNull
     public String getInn() {
         return mInn;
+    }
+
+    public void setInn(String inn) {
+        mInn = inn;
     }
 
     @Override
