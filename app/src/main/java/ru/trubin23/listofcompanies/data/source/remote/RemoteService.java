@@ -13,6 +13,6 @@ import ru.trubin23.listofcompanies.data.Company;
 interface RemoteService {
 
     @GET("/api_companies/companies")
-    Call<List<Company>> getTasks();
+    Call<List<Company>> getCompanies();
 
 }

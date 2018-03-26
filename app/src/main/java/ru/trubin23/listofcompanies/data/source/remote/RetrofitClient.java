@@ -13,7 +13,7 @@ import ru.trubin23.listofcompanies.data.Company;
  * Created by Andrey on 26.03.2018.
  */
 
-public class RetrofitClient {
+class RetrofitClient {
 
     private static final String BASE_URL = "https://trubin23.ru";
 
@@ -32,8 +32,8 @@ public class RetrofitClient {
         return sRemoteService;
     }
 
-    static void getTasks(@NonNull Callback<List<Company>> callback) {
+    static void getCompanies(@NonNull Callback<List<Company>> callback) {
         RemoteService remoteService = getRemoteService();
-        remoteService.getTasks().enqueue(callback);
+        remoteService.getCompanies().enqueue(callback);
     }
 }

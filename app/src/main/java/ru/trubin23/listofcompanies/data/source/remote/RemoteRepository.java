@@ -39,7 +39,7 @@ public class RemoteRepository {
 
     public void getCompanies(@NonNull LoadCompaniesCallback callback) {
         mNetworkIO.execute(() ->
-                RetrofitClient.getTasks(new ProcessingResponse<List<Company>>() {
+                RetrofitClient.getCompanies(new ProcessingResponse<List<Company>>() {
                     @Override
                     public void responseBody(@NonNull List<Company> body) {
                         callback.onCompaniesLoaded(body);
